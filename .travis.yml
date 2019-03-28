@@ -31,8 +31,10 @@ install:
 script: cd flutter_app; flutter build apk
 before_cache:
   # clean cache
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+#  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+#  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+  - rm -rf ~/.gradle/caches/*.*.*
+  - find $HOME/.gradle/caches -name "*.lock" -type f -delete
 cache:
   directories:
     - $HOME/.gradle/caches/
