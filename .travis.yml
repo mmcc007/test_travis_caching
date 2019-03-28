@@ -3,8 +3,9 @@
 #sudo: required
 #dist: trusty
 
-language: bash # ignored
+language: java # v1.8, trusty ubuntu 14.04
 install:
+        - java -version
         # Install the Android SDK Dependency.
         - export ANDROID_HOME=/opt/android-sdk-linux
         - wget -q https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip -O android-sdk-tools.zip && unzip -q android-sdk-tools.zip -d ${ANDROID_HOME} && rm android-sdk-tools.zip
@@ -30,11 +31,11 @@ install:
 script: cd flutter_app; flutter build ipa
 before_cache:
   # clean cache
-#  - rm -rf $HOME/.gradle/caches/$gradle_version/
-#  - find $HOME/.gradle/caches/ -name "*.lock" -type f -delete
-#  - find $PWD/flutter_app/android/.gradle/caches/ -name "*.lock" -type f -delete
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
     - $HOME/.pub-cache
-    - $HOME/.gradle/caches
 #    - $PWD/flutter_app/android/.gradle
