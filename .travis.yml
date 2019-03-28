@@ -32,6 +32,10 @@ script:
   - cd flutter_app
   - flutter -v build apk
   - ls -latr ~/.gradle/caches
+  - du -hs ~/.gradle/caches/*.*.*
+  - du -hs ~/.gradle/caches/build-cache-1
+  - du -hs ~/.gradle/caches/modules-2
+  - du -hs ~/.gradle/caches/transforms-1
 before_cache:
   # clean cache
 #  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
