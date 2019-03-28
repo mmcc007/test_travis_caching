@@ -1,7 +1,7 @@
 # sudo: false --> run dist image in docker container on shared host for faster startup (runs slower)
 # sudo: required --> run dist image in VM on Google Compute Engine for slower startup (runs faster)
-sudo: required
-dist: trusty
+#sudo: required
+#dist: trusty
 
 language: bash # ignored
 install:
@@ -37,4 +37,4 @@ cache:
   directories:
     - $HOME/.pub-cache
     - $HOME/.gradle/caches
-    - $PWD/flutter_app/android/.gradle
+#    - $PWD/flutter_app/android/.gradle
