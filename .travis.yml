@@ -1,1 +1,40 @@
-script: echo hello
+# sudo: false --> run dist image in docker container on shared host for faster startup (runs slower)
+# sudo: required --> run dist image in VM on Google Compute Engine for slower startup (runs faster)
+sudo: required
+dist: trusty
+
+language: bash # ignored
+install:
+        # Install the Android SDK Dependency.
+        - export ANDROID_HOME=/opt/android-sdk-linux
+        - wget -q https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip -O android-sdk-tools.zip && unzip -q android-sdk-tools.zip -d ${ANDROID_HOME} && rm android-sdk-tools.zip
+        - PATH=${ANDROID_HOME}/emulator:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools:${PATH}
+        # Silence warning.
+        - mkdir -p ~/.android && touch ~/.android/repositories.cfg
+        # Accept licenses before installing components, no need to echo y for each component
+        - yes | sdkmanager --licenses
+        # Platform tools
+        - sdkmanager "emulator" "tools" "platform-tools" > /dev/null
+        - sdkmanager --list | head -15
+
+        # install pre-compiled flutter
+        - FLUTTER_CHANNEL=stable
+        - FLUTTER_VERSION=1.2.1-${FLUTTER_CHANNEL}
+        - sdkmanager "platforms;android-28" "build-tools;28.0.3"
+        - sudo apt-get install -y --no-install-recommends lib32stdc++6 libstdc++6 > /dev/null
+        - wget --quiet --output-document=flutter.tar.xz https://storage.googleapis.com/flutter_infra/releases/${FLUTTER_CHANNEL}/linux/flutter_linux_v${FLUTTER_VERSION}.tar.xz && tar xf flutter.tar.xz > /dev/null && rm flutter.tar.xz
+        - export PATH="$PATH":"$HOME/.pub-cache/bin"
+        - export PATH=$PWD/flutter/bin:$PWD/flutter/bin/cache/dart-sdk/bin:$PATH
+        - flutter doctor -v
+
+script: cd flutter_app; flutter build ipa
+before_cache:
+  # clean cache
+#  - rm -rf $HOME/.gradle/caches/$gradle_version/
+#  - find $HOME/.gradle/caches/ -name "*.lock" -type f -delete
+#  - find $PWD/flutter_app/android/.gradle/caches/ -name "*.lock" -type f -delete
+cache:
+  directories:
+    - $HOME/.pub-cache
+    - $HOME/.gradle/caches
+    - $PWD/flutter_app/android/.gradle
