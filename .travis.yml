@@ -33,11 +33,11 @@ before_cache:
   # clean cache
 #  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
 #  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-  - rm -rf ~/.gradle/caches/*.*.*
-  - find $HOME/.gradle/caches -name "*.lock" -type f -delete
+#  - rm -rf ~/.gradle/caches/*.*.*
+#  - find $HOME/.gradle/caches -name "*.lock" -type f -delete
 cache:
   directories:
     - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
+#    - $HOME/.gradle/wrapper/
     - $HOME/.pub-cache
 #    - $PWD/flutter_app/android/.gradle
