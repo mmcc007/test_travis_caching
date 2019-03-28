@@ -3,7 +3,7 @@
 #sudo: required
 #dist: trusty
 
-language: java # v1.8, trusty ubuntu 14.04
+language: java # v1.8.0_151 (Oracle), trusty ubuntu 14.04
 install:
         - java -version
         # Install the Android SDK Dependency.
@@ -16,19 +16,19 @@ install:
         - yes | sdkmanager --licenses
         # Platform tools
         - sdkmanager "emulator" "tools" "platform-tools" > /dev/null
-        - sdkmanager --list | head -15
+#        - sdkmanager --list | head -15
 
         # install pre-compiled flutter
         - FLUTTER_CHANNEL=stable
         - FLUTTER_VERSION=1.2.1-${FLUTTER_CHANNEL}
-        - sdkmanager "platforms;android-28" "build-tools;28.0.3"
+        - sdkmanager "platforms;android-28" "build-tools;28.0.3" > /dev/null
         - sudo apt-get install -y --no-install-recommends lib32stdc++6 libstdc++6 > /dev/null
         - wget --quiet --output-document=flutter.tar.xz https://storage.googleapis.com/flutter_infra/releases/${FLUTTER_CHANNEL}/linux/flutter_linux_v${FLUTTER_VERSION}.tar.xz && tar xf flutter.tar.xz > /dev/null && rm flutter.tar.xz
         - export PATH="$PATH":"$HOME/.pub-cache/bin"
         - export PATH=$PWD/flutter/bin:$PWD/flutter/bin/cache/dart-sdk/bin:$PATH
         - flutter doctor -v
 
-script: cd flutter_app; flutter build ipa
+script: cd flutter_app; flutter build apk
 before_cache:
   # clean cache
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
