@@ -28,7 +28,10 @@ install:
         - export PATH=$PWD/flutter/bin:$PWD/flutter/bin/cache/dart-sdk/bin:$PATH
         - flutter doctor -v
 
-script: cd flutter_app; flutter build apk
+script:
+  - cd flutter_app
+  - flutter -v build apk
+  - ls -latr ~/.gradle/cache
 before_cache:
   # clean cache
 #  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
