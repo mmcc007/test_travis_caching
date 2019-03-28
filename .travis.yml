@@ -31,7 +31,7 @@ install:
 script:
   - cd flutter_app
   - flutter -v build apk
-  - ls -latr ~/.gradle/cache
+  - ls -latr ~/.gradle/caches
 before_cache:
   # clean cache
 #  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
