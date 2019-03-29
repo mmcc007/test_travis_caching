@@ -33,8 +33,8 @@ script:
   - flutter build apk
   - ls -latr ~/.gradle/caches
   - du -hs ~/.gradle/caches/*.*.*
-  - du -hs ~/.gradle/caches/build-cache-1
-  - du -hs ~/.gradle/caches/modules-2
+#  - du -hs ~/.gradle/caches/build-cache-1
+  - du -hs ~/.gradle/caches/modules-*
   - du -hs ~/.gradle/caches/transforms-1
 before_cache:
   # clean cache
