@@ -30,7 +30,7 @@ install:
 
 script:
   - cd flutter_app
-  - flutter -v build apk
+  - flutter build apk
   - ls -latr ~/.gradle/caches
   - du -hs ~/.gradle/caches/*.*.*
   - du -hs ~/.gradle/caches/build-cache-1
